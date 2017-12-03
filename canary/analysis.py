@@ -4,7 +4,7 @@ from google.cloud.language import types
 import math
 INFLUENCE_ERROR_FACTOR = 0.000001
 FOLLOWER_LOWER_LIMIT = 15
-VOLUME_FACTOR = 0.01
+VOLUME_FACTOR = 0.1
 
 class Analysis:
     """Tweet analysis"""
@@ -13,7 +13,7 @@ class Analysis:
         self.sum = 0
     def get_sentiment(self, text):
         """Use google cloud NLP to retrieve the sentiment of the text"""
-        print("Getting sentiment value...")
+        #print("Getting sentiment value...")
         document = types.Document(
             content=text,
             type=enums.Document.Type.PLAIN_TEXT)
@@ -21,7 +21,9 @@ class Analysis:
     def process_tweet(self, tweet):
         """Process a tweet and add its weighted value to the sum of sentiments"""
         sentiment = self.get_sentiment(tweet.text)
-        self.sum += sentiment.score*sentiment.magnitude*get_influence(tweet.followers)
+        print("Sentiment: "+str(sentiment.score)+" Followers: ", str(tweet.followers))
+        self.sum += sentiment.score*get_influence(tweet.followers)
+        print("Sum: "+str(self.sum))
     def get_value(self):
         """Return a net sentiment value between -1 and 1"""
         return math.erf(VOLUME_FACTOR*self.sum)
