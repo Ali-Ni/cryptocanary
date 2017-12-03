@@ -1,3 +1,4 @@
+credentials/
 *.py[co]
 *.DS_*
 # Packages
@@ -29,4 +30,3 @@ venv
 build
 
 .vscode
-google_credentials.json
