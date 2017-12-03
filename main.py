@@ -2,12 +2,13 @@ from canary.analysis import Analysis
 from canary.tweets import TweetStream
 import time
 
-analyzer = Analysis()
+bitcoin = Analysis()
 
 def nut(tweet):
-  print(tweet.text, tweet.followers)
+  bitcoin.process_tweet(tweet)
+  #print(tweet.followers)
+  print(bitcoin.get_value())
+  print()
 
-out = analyzer.get_sentiment("I love memes!")
+#out = analyzer.get_sentiment("I love memes!")
 stream = TweetStream(["bitcoin"], nut)
-print(out.magnitude)
-print(out.score)
