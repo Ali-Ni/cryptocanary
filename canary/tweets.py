@@ -17,11 +17,13 @@ FOLLOWER_LOWER_LIMIT = 15
 
 
 class Tweet:
-    def __init__(self, text, followers, name):
+    def __init__(self, text, followers, name, full_name, img):
         self.text = text
         self.followers = followers
         self.time = datetime.datetime.now()
         self.name = name
+        self.full_name = full_name
+        self.img = img
 
 
 class _TweetListener(StreamListener):
@@ -34,7 +36,7 @@ class _TweetListener(StreamListener):
         if obj["lang"] != "en" or "retweeted_status" in obj or obj["user"]["followers_count"] < FOLLOWER_LOWER_LIMIT:
             return True
         tweet = Tweet(obj["text"], obj["user"]
-                      ["followers_count"], obj["user"]["screen_name"])
+                      ["followers_count"], obj["user"]["screen_name"], obj["user"]["name"], obj["user"]["profile_image_url"])
         self.callback(tweet)
         return True
 

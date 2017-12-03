@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./main.css">
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
     crossorigin="anonymous"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
@@ -100,9 +101,26 @@
           </div>
         </div>
         <div class="tile is-parent">
-          <article class="tile is-child box">
-            <p class="title">Vertical...</p>
-            <p class="subtitle">Top tile</p>
+          <article id="tweets" class="tile is-child box" style="position:relative; overflow:scroll">
+            <div class="list">
+              <article class="media" id="tweet-template">
+                <figure class="media-left">
+                  <p class="image is-64x64">
+                    <img src="">
+                  </p>
+                </figure>
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong class="name"></strong>
+                      <small class="full_name"></small>
+                      <small class="time"></small>
+                      <br> <span class="text"></span>
+                    </p>
+                  </div>
+                </div>
+              </article>
+            </div>
           </article>
         </div>
       </div>
@@ -133,7 +151,6 @@
       }
     });
     chart.canvas.parentNode.style.height = '48vh';
-
   </script>
 </body>
 

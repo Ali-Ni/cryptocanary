@@ -16,7 +16,7 @@ etherium = Analysis()
 def emit_tweet(crypto):
     def f(tweet):
         delta = crypto.process_tweet(tweet)
-        payload = {"tweet": {"text": tweet.text, "followers": tweet.followers, "name": tweet.name},
+        payload = {"tweet": {"text": tweet.text, "followers": tweet.followers, "name": tweet.name, "full_name": tweet.full_name, "img": tweet.img},
                    "sentiment": crypto.get_value(), "delta": delta}
         socketio.emit("tweet", payload)
         if(payload["sentiment"] > BUY_SELL_THRESHOLD):
