@@ -11,6 +11,8 @@
     crossorigin="anonymous"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
+  
   <script type="text/javascript" src="main.js"></script>
 </head>
 
@@ -103,7 +105,7 @@
         <div class="tile is-parent">
           <article id="tweets" class="tile is-child box" style="position:relative; overflow:scroll">
             <div class="list">
-              <article class="media" id="tweet-template">
+              <article class="media is-small" id="tweet-template">
                 <figure class="media-left">
                   <p class="image is-64x64">
                     <img src="">
@@ -114,8 +116,8 @@
                     <p>
                       <strong class="name"></strong>
                       <small class="full_name"></small>
-                      <small class="time"></small>
-                      <br> <span class="text"></span>
+                      <small class="tag is-warning">neutral</small>
+                      <br> <small class="text"></small>
                     </p>
                   </div>
                 </div>

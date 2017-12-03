@@ -70,15 +70,31 @@ $(document).ready(function(){
         }
         chart.update();
     }
-
-    
-
+    $("#tweet-template").hide();
     socket.on("connected", function(){
         console.log("connected");
     });
     socket.on("tweet", function(data){
         console.log("tweet");
-        //update tweet, sentiment
+        var item = $("#tweet-template").clone();
+        item.attr("id", "");
+        item.find(".name").text(data.tweet.name);
+        item.find(".full_name").text(data.tweet.full_name);
+        console.log(data.delta)
+        if (data.delta > 0.1) {
+          item.find(".tag").text("positive");
+          item.find(".tag").removeClass("is-warning");
+          item.find(".tag").addClass("is-success");
+        } else if (data.delta < -0.05)  {
+          item.find(".tag").text("negative");
+          item.find(".tag").removeClass("is-warning");
+          item.find(".tag").addClass("is-danger");
+        }
+        item.find(".text").text(data.tweet.text);
+        item.find("img").attr("src", data.tweet.img);
+        item.prependTo("#tweets .list");
+        item.fadeIn();
+        
         console.log(data);
     });
     socket.on("ticker", function(data){
