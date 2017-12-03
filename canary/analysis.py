@@ -21,11 +21,17 @@ class Analysis:
         document = types.Document(
             content=text,
             type=enums.Document.Type.PLAIN_TEXT)
-        return self.client.analyze_sentiment(document=document).document_sentiment
+        try:
+            sentiment = self.client.analyze_sentiment(document=document).document_sentiment
+        except: 
+            sentiment = 0
+        return sentiment
 
     def process_tweet(self, tweet):
         """Process a tweet and add its weighted value to the sum of sentiments"""
         sentiment = self.get_sentiment(tweet.text)
+        if sentiment == 0:
+            return -1
         print("Sentiment: "+str(sentiment.score)+" Followers: ", str(tweet.followers))
         self.sum += sentiment.score*get_influence(tweet.followers)
         print("Sum: "+str(self.sum))      

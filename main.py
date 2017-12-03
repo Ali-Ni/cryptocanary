@@ -16,6 +16,8 @@ etherium = Analysis("ETH")
 def emit_tweet(crypto):
     def f(tweet):
         delta = crypto.process_tweet(tweet)
+        if delta == -1:
+          return -1
         payload = {"tweet": {"text": tweet.text, "followers": tweet.followers, "name": tweet.name, "full_name": tweet.full_name, "img": tweet.img},
                    "sentiment": crypto.get_value(), "delta": delta}
         socketio.emit("tweet", payload)
@@ -33,8 +35,8 @@ def emit_update(update):
     socketio.emit("ticker", payload)
 
 
-#btc_stream = TweetStream(["bitcoin", "btc"], emit_tweet(bitcoin))
-#eth_stream = TweetStream(["ethereum", "eth"], emit_tweet(etherium))
+btc_stream = TweetStream(["bitcoin", "btc"], emit_tweet(bitcoin))
+eth_stream = TweetStream(["ethereum", "eth"], emit_tweet(etherium))
 btc_ticker = Ticker("btc", emit_update)
 eth_ticker = Ticker("eth", emit_update)
 
