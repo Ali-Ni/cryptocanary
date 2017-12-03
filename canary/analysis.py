@@ -24,6 +24,7 @@ class Analysis:
         print("Sentiment: "+str(sentiment.score)+" Followers: ", str(tweet.followers))
         self.sum += sentiment.score*get_influence(tweet.followers)
         print("Sum: "+str(self.sum))
+        return self.get_value()
     def get_value(self):
         """Return a net sentiment value between -1 and 1"""
         return math.erf(VOLUME_FACTOR*self.sum)
