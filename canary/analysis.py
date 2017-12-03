@@ -7,11 +7,14 @@ FOLLOWER_LOWER_LIMIT = 15
 SENTIMENT_INTERCEPT = -0.15
 VOLUME_FACTOR = 0.1
 
+
 class Analysis:
     """Tweet analysis"""
-    def __init__(self):
+    def __init__(self, label):
         self.client = language.LanguageServiceClient()
         self.sum = 0
+        self.label = label
+
     def get_sentiment(self, text):
         """Use google cloud NLP to retrieve the sentiment of the text"""
         #print("Getting sentiment value...")
@@ -19,16 +22,19 @@ class Analysis:
             content=text,
             type=enums.Document.Type.PLAIN_TEXT)
         return self.client.analyze_sentiment(document=document).document_sentiment
+
     def process_tweet(self, tweet):
         """Process a tweet and add its weighted value to the sum of sentiments"""
         sentiment = self.get_sentiment(tweet.text)
         print("Sentiment: "+str(sentiment.score)+" Followers: ", str(tweet.followers))
         self.sum += sentiment.score*get_influence(tweet.followers)
-        print("Sum: "+str(self.sum))
+        print("Sum: "+str(self.sum))      
         return sentiment.score
+
     def get_value(self):
         """Return a net sentiment value between -1 and 1"""
         return math.erf(VOLUME_FACTOR*self.sum)
+
     def soft_reset(self):
         """Soft reset of value"""
         self.sum /= 2

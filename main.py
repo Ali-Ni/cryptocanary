@@ -9,8 +9,8 @@ BUY_SELL_THRESHOLD = 0.15
 app = Flask(__name__, static_folder="web/public", static_url_path="")
 socketio = SocketIO(app, async_mode="threading")
 
-bitcoin = Analysis()
-etherium = Analysis()
+bitcoin = Analysis("BTC")
+etherium = Analysis("ETH")
 
 
 def emit_tweet(crypto):
@@ -21,10 +21,10 @@ def emit_tweet(crypto):
         socketio.emit("tweet", payload)
         if(payload["sentiment"] > BUY_SELL_THRESHOLD):
           crypto.soft_reset()
-          socketio.emit("buy", {"sentiment": crypto.get_value()})
+          socketio.emit("buy", {"currency": crypto.label, "sentiment": crypto.get_value()})
         elif(payload["sentiment"] < -BUY_SELL_THRESHOLD):
           crypto.soft_reset()
-          socketio.emit("sell", {"sentiment": crypto.get_value()})
+          socketio.emit("sell", {"currency": crypto.label, "sentiment": crypto.get_value()})
     return f
 
 
