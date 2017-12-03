@@ -6,7 +6,7 @@ import threading
 class Update:
     def __init__(self, currency, price, timestamp):
         self.currency = currency
-        self.value = price
+        self.price = price
         self.timestamp = timestamp
 
 
