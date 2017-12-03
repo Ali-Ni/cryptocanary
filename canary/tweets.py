@@ -1,11 +1,12 @@
 import json
+import datetime
 from collections import defaultdict
 
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
 
-conf = json.load(open('./credentials/twitter_credentials.json'))
+conf = json.load(open("./credentials/twitter_credentials.json"))
 
 ACCESS_TOKEN = conf["accessToken"]
 ACCESS_TOKEN_SECRET = conf["accessTokenSecret"]
@@ -16,9 +17,11 @@ FOLLOWER_LOWER_LIMIT = 15
 
 
 class Tweet:
-    def __init__(self, text, followers):
+    def __init__(self, text, followers, name):
         self.text = text
         self.followers = followers
+        self.time = datetime.datetime.now()
+        self.name = name
 
 
 class _TweetListener(StreamListener):
@@ -30,7 +33,8 @@ class _TweetListener(StreamListener):
         obj = defaultdict(int, json.loads(data))
         if obj["lang"] != "en" or "retweeted_status" in obj or obj["user"]["followers_count"] < FOLLOWER_LOWER_LIMIT:
             return True
-        tweet = Tweet(obj["text"], obj["user"]["followers_count"])
+        tweet = Tweet(obj["text"], obj["user"]
+                      ["followers_count"], obj["user"]["screen_name"])
         self.callback(tweet)
         return True
 
