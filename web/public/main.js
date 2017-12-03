@@ -6,7 +6,9 @@ $(document).ready(function(){
     socket.on("tweet", function(data){
         console.log("tweet");
         console.log(data);
-        console.log(data.sentiment);
-        console.log(data.tweet.text);
     });
+    socket.on("ticker", function(data){
+      console.log("ticker");
+      console.log(data);
+  });
 });
