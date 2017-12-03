@@ -4,9 +4,10 @@ import time
 
 analyzer = Analysis()
 
+def nut(tweet):
+  print(tweet.text, tweet.followers)
+
 out = analyzer.get_sentiment("I love memes!")
-stream = TweetStream("bitcoin")
+stream = TweetStream(["bitcoin"], nut)
 print(out.magnitude)
 print(out.score)
-while True:
-  time.sleep(1)
