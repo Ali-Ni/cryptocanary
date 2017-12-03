@@ -27,3 +27,6 @@ pip-log.txt
 venv
 *.pyc
 build
+
+.vscode
+google_credentials.json
