@@ -4,6 +4,7 @@ from google.cloud.language import types
 import math
 INFLUENCE_ERROR_FACTOR = 0.000001
 FOLLOWER_LOWER_LIMIT = 15
+SENTIMENT_INTERCEPT = -0.15
 VOLUME_FACTOR = 0.1
 
 class Analysis:
